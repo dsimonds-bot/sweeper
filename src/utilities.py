@@ -101,6 +101,14 @@ def dataframe_info_table(dataframe: pd.DataFrame) -> pd.DataFrame:
     
     return dataframe_info
 
+def mk_assets_dir():
+
+    """
+    This function makes a dir called assets in the cwd
+    """
+
+    os.mkdir(os.path.join(os.getcwd(), 'assets'))
+
 def rm_dir(dirname: str):
     
     """

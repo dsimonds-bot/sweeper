@@ -13,6 +13,8 @@ def make_boxplots(dataframe: pd.DataFrame):
     """
     This function takes a user inputted dataframe, working directory,
     and creates a visual boxplot for each numeric column in the dataframe.
+
+    Please note this requires that the assets dir has already been made.
     
     Parameters:
     ----------
@@ -28,7 +30,7 @@ def make_boxplots(dataframe: pd.DataFrame):
     dataframe_numeric_columns = list(dataframe_attribute_dict['_numeric'].columns)
     
     # Creating a spot to save the .png files
-    os.makedirs(os.path.join(os.getcwd(), 'assets', 'boxplots'))
+    os.mkdir('assets/boxplots')
     
     # Loop through the columns and make a boxplot asset for them
     for numeric_column_names in dataframe_numeric_columns:
@@ -50,3 +52,47 @@ def make_boxplots(dataframe: pd.DataFrame):
         # Saving the figure
         plt.savefig(f'assets/boxplots/{numeric_column_names}-boxplot.png', format = 'png');
         plt.close()
+
+def make_histograms(dataframe: pd.DataFrame):
+
+    """
+    This function accepts a dataframe as an argument. It loops through
+    the numeric columns of the dataframe, producing a histogram
+    of the column and saving it in a folder within the working dir
+    assets/histograms.
+
+    Parameters:
+    ----------
+    dataframe : pd.DataFrame
+        A dataframe to make histograms off of
+
+    """
+
+    # Create dataframe attributes
+    dataframe_attributes_dict = dataframe_attributes(dataframe)
+
+    # Create list of numeric columns
+    dataframe_numeric_columns = list(dataframe_attributes_dict['_numeric'].columns)
+
+    # Creating a spot to save the .png files
+    os.mkdir('assets/histograms')
+
+    # Making a dir to save the .png files
+    for numeric_column_names in dataframe_numeric_columns:
+
+        # Create the figure
+        fig, ax = plt.subplots(figsize = (12,7));
+
+        # Create the histogram
+        ax.hist(
+            x = dataframe[numeric_column_names].values
+        );
+
+        # MLS
+        ax.set_title(f'Histogram for {numeric_column_names}');
+        ax.set_ylabel('Density');
+        ax.set_xlabel('Bins');
+
+        # Saving the figure
+        plt.savefig(f'assets/histograms/{numeric_column_names}-histogram.png', format = 'png');
+        plt.close();
