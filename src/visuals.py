@@ -28,24 +28,25 @@ def make_boxplots(dataframe: pd.DataFrame):
     dataframe_numeric_columns = list(dataframe_attribute_dict['_numeric'].columns)
     
     # Creating a spot to save the .png files
-    os.mkdir(os.path.join(os.getcwd(), 'assets'))
+    os.makedirs(os.path.join(os.getcwd(), 'assets', 'boxplots'))
     
     # Loop through the columns and make a boxplot asset for them
     for numeric_column_names in dataframe_numeric_columns:
         
         # Create the figure
-        fig, ax = plt.subplots(figsize = (12,7))
+        fig, ax = plt.subplots(figsize = (12,7));
         
         # Create the boxplot
         ax.boxplot(
             x = dataframe[numeric_column_names].values,
-        )
+        );
         
         # MLS
-        ax.set_title(f'Boxplot for {numeric_column_names}')
-        ax.set_ylabel(numeric_column_names)
-        ax.set_xlabel('')
-        fig.tight_layout()
+        ax.set_title(f'Boxplot for {numeric_column_names}');
+        ax.set_ylabel(numeric_column_names);
+        ax.set_xlabel('');
+        fig.tight_layout();
         
         # Saving the figure
-        plt.savefig(f'assets/{numeric_column_names}-boxplot.png', format = 'png')
+        plt.savefig(f'assets/boxplots/{numeric_column_names}-boxplot.png', format = 'png');
+        plt.close()
