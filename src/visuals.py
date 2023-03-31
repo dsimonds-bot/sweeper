@@ -1,9 +1,8 @@
 # Package Import
+import os
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.style as style
-import seaborn as sns
 style.use('ggplot')
 
 from utilities import dataframe_attributes
@@ -28,6 +27,9 @@ def make_boxplots(dataframe: pd.DataFrame):
     # Create list of numeric columns
     dataframe_numeric_columns = list(dataframe_attribute_dict['_numeric'].columns)
     
+    # Creating a spot to save the .png files
+    os.mkdir(os.path.join(os.getcwd(), 'assets'))
+    
     # Loop through the columns and make a boxplot asset for them
     for numeric_column_names in dataframe_numeric_columns:
         
@@ -44,9 +46,5 @@ def make_boxplots(dataframe: pd.DataFrame):
         ax.set_ylabel(numeric_column_names)
         ax.set_xlabel('')
         
-        # Saving to working directory
-        boxplot_figure_filename = f'{numeric_column_names}-boxplot.png'
-        plt.savefig(boxplot_figure_filename)
-        plt.close()
-        
-        
+        # Saving the figure
+        plt.savefig(f'assets/{numeric_column_names}-boxplot.png', format = 'png')
