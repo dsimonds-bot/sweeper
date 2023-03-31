@@ -26,8 +26,8 @@ def dataframe_attributes(dataframe: pd.DataFrame) -> dict:
         '_m' : dataframe.shape[0],
         '_n' : dataframe.shape[1],
         '_columns' : list(dataframe.columns),
-        '_categorical' : list(dataframe.select_dtypes(include = object).columns),
-        '_numeric' : list(dataframe.select_dtypes(include = np.number).columns)
+        '_categorical' : dataframe.select_dtypes(include = object),
+        '_numeric' : dataframe.select_dtypes(include = np.number)
     }
     
     return attribute_dict
