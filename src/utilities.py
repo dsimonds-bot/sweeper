@@ -1,7 +1,8 @@
 # Package Import
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+import os
+import shutil
 
 # Function definitions
 def dataframe_attributes(dataframe: pd.DataFrame) -> dict:
@@ -99,3 +100,17 @@ def dataframe_info_table(dataframe: pd.DataFrame) -> pd.DataFrame:
     )
     
     return dataframe_info
+
+def rm_dir(dirname: str):
+    
+    """
+    This function takes a dir name in the current working directory and deletes it.
+    It will also take care of all of the files saved within that directory.
+    
+    Parameters:
+    ----------
+    dirname : str
+        The name of the directory we are removing
+    """
+    
+    shutil.rmtree(os.path.join(os.getcwd(), dirname))

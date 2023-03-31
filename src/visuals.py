@@ -45,6 +45,7 @@ def make_boxplots(dataframe: pd.DataFrame):
         ax.set_title(f'Boxplot for {numeric_column_names}')
         ax.set_ylabel(numeric_column_names)
         ax.set_xlabel('')
+        fig.tight_layout()
         
         # Saving the figure
         plt.savefig(f'assets/{numeric_column_names}-boxplot.png', format = 'png')
