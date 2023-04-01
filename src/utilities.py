@@ -122,3 +122,10 @@ def rm_dir(dirname: str):
     """
     
     shutil.rmtree(os.path.join(os.getcwd(), dirname))
+
+def easter_egg():
+    class Dave:
+        is_goobie = True
+
+    if Dave.is_goobie:
+        print("mehoy minoy")
