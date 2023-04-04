@@ -4,6 +4,14 @@ import numpy as np
 import os
 import shutil
 
+# Globals
+branding_dict = {
+    'gold' : '#946B2D',
+    'dark-blue' : '#0E1A40',
+    'grey' : '#5D5D5D',
+    'light-blue' : '#222F5B'
+}
+
 # Function definitions
 def dataframe_attributes(dataframe: pd.DataFrame) -> dict:
     

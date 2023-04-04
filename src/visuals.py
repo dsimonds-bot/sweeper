@@ -3,9 +3,11 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.style as style
+import numpy as np
+from matplotlib.font_manager import FontProperties
 style.use('ggplot')
 
-from utilities import dataframe_attributes
+from utilities import dataframe_attributes, branding_dict
 
 # Function definitions
 def make_boxplots(dataframe: pd.DataFrame):
@@ -96,3 +98,48 @@ def make_histograms(dataframe: pd.DataFrame):
         # Saving the figure
         plt.savefig(f'assets/histograms/{numeric_column_names}-histogram.png', format = 'png');
         plt.close();
+
+def dataframe_image(dataframe: pd.DataFrame, image_name: str):
+
+    """
+    This function accepts a dataframe and an image name as arguments, and saves
+    the image of the dataframe in the users working directory under assets/dataframes.
+
+    Parameters:
+    ----------
+    dataframe : pd.DataFrame
+        The dataframe to represent as an image
+
+    image_name : str
+        The string of which to make the file name of the dataframe image
+        <image_name>-table.png is how it will appear in assets/dataframes.
+    """
+
+    # Creating the color scheme
+    colors = list(np.repeat(branding_dict['gold'], len(dataframe.columns)));
+
+    # Building the table
+    fig, ax = plt.subplots();
+    ax.axis('off');
+    ax.axis('tight');
+    table = ax.table(
+        cellText = dataframe.values,
+        colLabels = dataframe.columns,
+        colColours = colors,
+        loc = 'center',
+        rowLabels = dataframe.index
+    );
+
+    # MLS
+    for (row, col), cell in table.get_celld().items():
+
+        # Label specific settings
+        if (row == 0) or (col == -1):
+            cell.set_text_props(fontproperties = FontProperties(weight = 'bold'));
+
+        # Table wide settings
+        cell.set_edgecolor(branding_dict['light-blue']);
+        
+    # Saving results
+    fig.tight_layout();
+    fig.savefig(f'assets/dataframes/{image_name}-dataframe.png', format = 'png');
