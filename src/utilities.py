@@ -129,3 +129,35 @@ def easter_egg():
 
     if Dave.is_goobie:
         print("mehoy minoy")
+
+def column_describe_storage(dataframe: pd.DataFrame) -> dict:
+
+    """
+    This function takes a pandas dataframe, and loops through each column.
+    Within each loop, this function then stores the column name along with a simple
+    pd.DataFrame.describe() method dataframe within the dictionary. 
+
+    Parameters:
+    ----------
+    dataframe : pd.DataFrame
+        A pandas dataframe to loop through and store results for
+
+    Returns:
+    column_describe_dict : dict
+        A dictionary with each key : value pair corresponding to the 
+        column name and .describe() method on that column    
+    """
+
+    # Create the storage dictionary
+    column_describe_dict = {}
+
+    # Start the loop
+    for numeric_column_names in list(dataframe.columns):
+
+        # Create the key value pair
+        column_describe_dict[numeric_column_names] = pd.DataFrame(
+            data = {
+                numeric_column_names : dataframe[numeric_column_names].describe()
+            })
+
+    return column_describe_dict
