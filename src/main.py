@@ -7,6 +7,10 @@ import visuals
 
 def main(dataframe: pd.DataFrame, save_components = False):
 
+    # Check the status of the assets dir
+    if os.path.exists('assets') and os.path.isdir('assets'):
+        utilities.rm_dir('assets')
+
     # Make a new assets dir
     utilities.mk_assets_dir()
 
