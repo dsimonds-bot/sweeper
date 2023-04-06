@@ -15,7 +15,7 @@ In a way, I hope this project can help acheive the same by automating most of ED
 :black_medium_square: **Each numerical feature will have an auto-generated page dedicated to it alone**, containing histograms, boxplots, descriptive statistics, and a brief write up. This should help the user identify potential skewed inputs, varying scale, etc. 
 
 ## Categorical feature report
-:black_medium_square: **sweeper will automatically create a grid of bar charts for the number of occurences for each distinct value of a categorical column.** If you have 3, if you have 500, **sweeper will find the optimal layout for your report.**
+:black_medium_square: sweeper will automatically create a grid of bar charts for the number of occurences for each distinct value of a categorical column. **If you have 3, if you have 500, sweeper will find the optimal layout for your report.**
 
 ## Demo
 ![image](https://user-images.githubusercontent.com/57107058/230261493-dbb6a40a-c462-49d4-9ff4-99df2b1cfe92.png)
