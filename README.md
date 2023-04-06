@@ -2,7 +2,7 @@
 
 :paintbrush: [Mockups](https://github.com/dsimonds-bot/sweeper/discussions/2) </br>
 :teacher: [Demo](https://github.com/dsimonds-bot/sweeper/blob/main/src/scratch.ipynb) </br>
-:email: davesimonds6@gmail.com </br>
+:bird: [Contact via Twitter](https://twitter.com/DaveSimonds2)
 
 Project sweeper takes its namesake from the League of Legends Item, the oracle lens. This searches into areas where the player cannot see, identifying traps or things to look out for. 
  
