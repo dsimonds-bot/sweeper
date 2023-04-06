@@ -13,5 +13,4 @@ Each numerical feature will have an auto-generated page dedicated to it alone, c
 sweeper will automatically create a grid of bar charts for the number of occurences for each distinct value of a categorical column. If you have 3, if you have 500, sweeper will find the optimal layout for your report.
 
 ## Demo
-![image](https://user-images.githubusercontent.com/57107058/230260485-ecba1c91-5f2a-45f8-a749-ea5e3b57bf92.png)
-![image](https://user-images.githubusercontent.com/57107058/230260556-709f8302-bc1e-4273-8e22-2ed67b00c5b4.png)
+![image](https://user-images.githubusercontent.com/57107058/230261493-dbb6a40a-c462-49d4-9ff4-99df2b1cfe92.png)
