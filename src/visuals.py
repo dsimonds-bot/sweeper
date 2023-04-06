@@ -31,9 +31,6 @@ def make_boxplots(dataframe: pd.DataFrame):
     # Create list of numeric columns
     dataframe_numeric_columns = list(dataframe_attribute_dict['_numeric'].columns)
     
-    # Creating a spot to save the .png files
-    os.mkdir('assets/boxplots')
-    
     # Loop through the columns and make a boxplot asset for them
     for numeric_column_names in dataframe_numeric_columns:
         
@@ -75,9 +72,6 @@ def make_histograms(dataframe: pd.DataFrame):
 
     # Create list of numeric columns
     dataframe_numeric_columns = list(dataframe_attributes_dict['_numeric'].columns)
-
-    # Creating a spot to save the .png files
-    os.mkdir('assets/histograms')
 
     # Making a dir to save the .png files
     for numeric_column_names in dataframe_numeric_columns:
@@ -143,3 +137,48 @@ def dataframe_image(dataframe: pd.DataFrame, image_name: str):
     # Saving results
     fig.tight_layout();
     fig.savefig(f'assets/dataframes/{image_name}-dataframe.png', format = 'png');
+
+def make_value_counts(dataframe: pd.DataFrame):
+
+    """
+    This function accepts a pandas dataframe and loops through each
+    distinct column and produces a barchart for the distinct value
+    counts.
+
+    These are then saved to assets/value counts
+
+    Parameters:
+    ----------
+    dataframe : pd.DataFrame
+        The dataframe to loop through
+    """
+
+    # Loop through columnd
+    for idx, categorical_column_names in enumerate(dataframe):
+
+        # Identify number of distinct values
+        n_distinct = len(dataframe[categorical_column_names].unique())
+
+        # Identify number of bars to show
+        n_bars = min(n_distinct, 10)
+
+        # Make a subset of the data
+        value_counts = dataframe[categorical_column_names].value_counts()
+
+        # Make plot
+        fig, ax = plt.subplots()
+        
+        value_counts.iloc[0:n_bars].plot(
+            kind = 'barh',
+            ax = ax,
+            color = branding_dict['gold']
+        )
+
+        # MLS
+        ax.set_title(f'Value Counts for {categorical_column_names}')
+        ax.set_xlabel('Value Counts')\
+
+        # Saving figure
+        fig.tight_layout()
+        fig.savefig(f'assets/value-counts/{categorical_column_names}-valcounts.png', format = 'png')
+

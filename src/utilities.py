@@ -114,8 +114,15 @@ def mk_assets_dir():
     """
     This function makes a dir called assets in the cwd
     """
+    if os.path.exists('assets') and os.path.isdir('assets'):
+        shutil.rmtree(os.path.join(os.getcwd(), 'assets'))
 
     os.mkdir(os.path.join(os.getcwd(), 'assets'))
+    os.mkdir('assets/boxplots')
+    os.mkdir('assets/dataframes')
+    os.mkdir('assets/value-counts')
+    os.mkdir('assets/histograms')
+
 
 def rm_dir(dirname: str):
     
