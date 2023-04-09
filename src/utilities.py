@@ -70,7 +70,7 @@ def dataframe_overview_writeup(report_name:str, attribute_dict: dict) -> str:
     # Writing string
     overview_writeup = f'Report name: {report_name}' \
         f' Your dataframe has {nobs} nobs and {ndim} ndim.' \
-        f' There are {len(cat)} categorical variables, and {len(num)} numeric columns.'
+        f' There are {len(cat)} categorical features, and {len(num)} numeric features.'
     
     return overview_writeup
 
@@ -116,6 +116,8 @@ def mk_assets_dir():
     """
 
     os.mkdir(os.path.join(os.getcwd(), 'assets'))
+    for dirnames in ['boxplots', 'dataframes', 'histograms', 'writeups']:
+        os.mkdir(f'assets/{dirnames}')
 
 def rm_dir(dirname: str):
     
@@ -151,6 +153,7 @@ def column_describe_storage(dataframe: pd.DataFrame) -> dict:
         A pandas dataframe to loop through and store results for
 
     Returns:
+    -------
     column_describe_dict : dict
         A dictionary with each key : value pair corresponding to the 
         column name and .describe() method on that column    

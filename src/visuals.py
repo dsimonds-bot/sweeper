@@ -31,9 +31,6 @@ def make_boxplots(dataframe: pd.DataFrame):
     # Create list of numeric columns
     dataframe_numeric_columns = list(dataframe_attribute_dict['_numeric'].columns)
     
-    # Creating a spot to save the .png files
-    os.mkdir('assets/boxplots')
-    
     # Loop through the columns and make a boxplot asset for them
     for numeric_column_names in dataframe_numeric_columns:
         
@@ -75,9 +72,6 @@ def make_histograms(dataframe: pd.DataFrame):
 
     # Create list of numeric columns
     dataframe_numeric_columns = list(dataframe_attributes_dict['_numeric'].columns)
-
-    # Creating a spot to save the .png files
-    os.mkdir('assets/histograms')
 
     # Making a dir to save the .png files
     for numeric_column_names in dataframe_numeric_columns:
