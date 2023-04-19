@@ -7,7 +7,7 @@ import numpy as np
 from matplotlib.font_manager import FontProperties
 style.use('ggplot')
 
-from utilities import dataframe_attributes, branding_dict
+from util import dataframe_attributes, branding_dict
 
 # Function definitions
 def make_boxplots(dataframe: pd.DataFrame):
