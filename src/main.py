@@ -11,22 +11,19 @@ def assets_build(dataframe: pd.DataFrame, save_components = False):
     util.mk_assets_dir()
 
     # Make dataframe attributes
-    df_attributes = util.dataframe_attributes(dataframe)
+    dataframe_structure = data_import.loading_dock(dataframe)
 
     # Make the boxplots
-    assets.make_boxplots(df_attributes['_numeric'])
+    assets.make_boxplots(dataframe_structure.num())
 
     # Make the histograms
-    assets.make_histograms(df_attributes['_numeric'])
+    assets.make_histograms(dataframe_structure.num())
 
     # Create the column-wise describe storage
-    storage = util.column_describe_storage(df_attributes['_numeric'])
-
-    # Save visuals of dataframes
-    os.mkdir('assets/dataframes')
+    storage = util.column_describe_storage(dataframe_structure.num())
 
     for column_names in list(storage.keys()):
         assets.dataframe_image(storage[column_names], image_name = column_names)
 
     # Making aggregate dataframe images
-    assets.dataframe_image(df_attributes['_numeric'].describe(), image_name = 'aggregate')
+    assets.dataframe_image(dataframe.describe(), image_name = 'aggregate')
