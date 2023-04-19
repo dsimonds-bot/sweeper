@@ -181,4 +181,3 @@ def make_value_counts(dataframe: pd.DataFrame):
         # Saving figure
         fig.tight_layout()
         fig.savefig(f'assets/value-counts/{categorical_column_names}-valcounts.png', format = 'png')
-
