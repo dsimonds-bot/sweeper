@@ -1,5 +1,8 @@
 # Custom
 *.png
+scratch.ipynb
+*.xlsx
+*.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
