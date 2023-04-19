@@ -1,11 +1,12 @@
 # Package Import
-import os
 import pandas as pd
+import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.style as style
 import numpy as np
 from matplotlib.font_manager import FontProperties
 style.use('ggplot')
+matplotlib.use('Agg')
 
 from util import dataframe_attributes, branding_dict
 
@@ -136,7 +137,7 @@ def dataframe_image(dataframe: pd.DataFrame, image_name: str):
         
     # Saving results
     fig.tight_layout();
-    fig.savefig(f'assets/dataframes/{image_name}-dataframe.png', format = 'png');
+    plt.savefig(f'assets/dataframes/{image_name}-dataframe.png', format = 'png');
 
 def make_value_counts(dataframe: pd.DataFrame):
 
@@ -166,7 +167,7 @@ def make_value_counts(dataframe: pd.DataFrame):
         value_counts = dataframe[categorical_column_names].value_counts()
 
         # Make plot
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots();
         
         value_counts.iloc[0:n_bars].plot(
             kind = 'barh',
@@ -175,9 +176,9 @@ def make_value_counts(dataframe: pd.DataFrame):
         )
 
         # MLS
-        ax.set_title(f'Value Counts for {categorical_column_names}')
-        ax.set_xlabel('Value Counts')\
+        ax.set_title(f'Value Counts for {categorical_column_names}');
+        ax.set_xlabel('Value Counts');
 
         # Saving figure
-        fig.tight_layout()
-        fig.savefig(f'assets/value-counts/{categorical_column_names}-valcounts.png', format = 'png')
+        fig.tight_layout();
+        plt.savefig(f'assets/value-counts/{categorical_column_names}-valcounts.png', format = 'png');
