@@ -112,12 +112,19 @@ def dataframe_info_table(dataframe: pd.DataFrame) -> pd.DataFrame:
 def mk_assets_dir():
 
     """
-    This function makes a dir called assets in the cwd
+    This function makes a dir called assets in the cwd,
+    and then builds the necessary subdir
     """
     if os.path.exists('assets') and os.path.isdir('assets'):
         shutil.rmtree(os.path.join(os.getcwd(), 'assets'))
 
     os.mkdir(os.path.join(os.getcwd(), 'assets'))
+    
+    for dir_names in ['boxplots', 'histograms', 'value-counts', 'dataframes']:
+        
+        path = os.path.join(os.getcwd(), 'assets')
+        os.mkdir(os.path.join(path, dir_names))
+    
 
 def rm_dir(dirname: str):
     
