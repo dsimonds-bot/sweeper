@@ -1,6 +1,6 @@
 # Package Import
 import pandas as pd
-import util
+import numpy as np
 
 # Class definitions
 class loading_dock:
@@ -10,41 +10,38 @@ class loading_dock:
         # Assign Dataframe
         self.dataframe = dataframe
         
-        # Extract attributes
-        self.attributes = util.dataframe_attributes(dataframe)
-        
     def cat(self) -> pd.DataFrame:
         
         """
         This method returns the categorical columns of the dataframe
         """
         
-        return self.attributes['_categorical']
+        return self.dataframe.select_dtypes(include = object)
     
     def num(self) -> pd.DataFrame:
         
         """
         This method returns the numeric columns of the dataframe
         """
-        return self.attributes['_numeric']
+        return self.dataframe.select_dtypes(include = np.number)
     
     def columns(self) -> list:
         
         """
         This method returns the columns of the dataframe
         """
-        return self.attributes['_columns']
+        return self.dataframe.columns
     
     def nobs(self) -> int:
         
         """
         This method returns the number of rows of the dataframe
         """
-        return self.attributes['_m']
+        return self.dataframe.shape[0]
     
     def ndim(self) -> int:
         
         """
         This method returns the number of overall columns
         """
-        return self.attributes['_n']
+        return self.dataframe.shape[1]
