@@ -4,36 +4,39 @@ import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.style as style
 import numpy as np
+import io
 from matplotlib.font_manager import FontProperties
+from util import branding_dict
+
+# Settings
 style.use('ggplot')
 matplotlib.use('Agg')
 
-from util import dataframe_attributes, branding_dict
-
 # Function definitions
-def make_boxplots(dataframe: pd.DataFrame):
+def make_boxplots(dataframe: pd.DataFrame) -> dict:
     
     """
-    This function takes a user inputted dataframe, working directory,
-    and creates a visual boxplot for each numeric column in the dataframe.
-
-    Please note this requires that the assets dir has already been made.
+    This function takes a dataframe as an argument, and creates
+    boxplots for each columns. These are then converted into a
+    bytes object, and stored in a dictionary. The key-name to access
+    this bytes obkect is the name of the dataframe column.
     
     Parameters:
     ----------
-    dataframe : pd.DataFrame
+    dataframe: pd.DataFrame
         The dataframe to make the box plots off of
-        
+    
+    Returns:
+    -------
+    boxplot_dict: dict
+        A dictionary with the key representing the given
+        column name, and the value being the bytes object
+        corresponding to a boxplot for that variable. 
     """
     
-    # Create the attributes of the dataframe
-    dataframe_attribute_dict = dataframe_attributes(dataframe)
-    
-    # Create list of numeric columns
-    dataframe_numeric_columns = list(dataframe_attribute_dict['_numeric'].columns)
-    
     # Loop through the columns and make a boxplot asset for them
-    for numeric_column_names in dataframe_numeric_columns:
+    boxplot_dict = {}
+    for idx, numeric_column_names in enumerate(dataframe.columns):
         
         # Create the figure
         fig, ax = plt.subplots(figsize = (12,7));
@@ -50,32 +53,41 @@ def make_boxplots(dataframe: pd.DataFrame):
         fig.tight_layout();
         
         # Saving the figure
-        plt.savefig(f'assets/boxplots/{numeric_column_names}-boxplot.png', format = 'png');
+        buf = io.BytesIO()
+        fig.savefig(buf, format = 'jpeg');
+        buf.seek(idx)
+        fig_data = buf.getvalue()
+        boxplot_dict[numeric_column_names] = fig_data
+        buf.close()
         plt.close()
+        
+    return boxplot_dict
 
-def make_histograms(dataframe: pd.DataFrame):
+def make_histograms(dataframe: pd.DataFrame) -> dict:
 
     """
-    This function accepts a dataframe as an argument. It loops through
-    the numeric columns of the dataframe, producing a histogram
-    of the column and saving it in a folder within the working dir
-    assets/histograms.
+    This function accepts a dataframe as an argument, and creates a
+    histogram for each column. It then converts that histogram into
+    a bytes object, and stores it in a dictionary. The key to access
+    this histogram is the column name for the corresponding pandas
+    column.
 
     Parameters:
     ----------
-    dataframe : pd.DataFrame
+    dataframe: pd.DataFrame
         A dataframe to make histograms off of
-
+        
+    Returns:
+    -------
+    histograms_dict: dict
+        A dictionary with the key representing the given
+        column name, and the value being the bytes object
+        corresponding to a histogram for that variable.
     """
 
-    # Create dataframe attributes
-    dataframe_attributes_dict = dataframe_attributes(dataframe)
-
-    # Create list of numeric columns
-    dataframe_numeric_columns = list(dataframe_attributes_dict['_numeric'].columns)
-
     # Making a dir to save the .png files
-    for numeric_column_names in dataframe_numeric_columns:
+    histograms_dict = {}
+    for idx, numeric_column_names in enumerate(dataframe.columns):
 
         # Create the figure
         fig, ax = plt.subplots(figsize = (12,7));
@@ -91,10 +103,18 @@ def make_histograms(dataframe: pd.DataFrame):
         ax.set_xlabel('Bins');
 
         # Saving the figure
-        plt.savefig(f'assets/histograms/{numeric_column_names}-histogram.png', format = 'png');
-        plt.close();
+        buf = io.BytesIO()
+        fig.savefig(buf, format = 'jpeg')
+        buf.seek(idx)
+        figs_data = buf.getvalue()
+        histograms_dict[numeric_column_names] = figs_data
+        buf.close()
+        plt.close()
+    
+    return histograms_dict
+        
 
-def dataframe_image(dataframe: pd.DataFrame, image_name: str):
+def dataframe_image(dataframe: pd.DataFrame) -> bytes:
 
     """
     This function accepts a dataframe and an image name as arguments, and saves
@@ -105,9 +125,6 @@ def dataframe_image(dataframe: pd.DataFrame, image_name: str):
     dataframe : pd.DataFrame
         The dataframe to represent as an image
 
-    image_name : str
-        The string of which to make the file name of the dataframe image
-        <image_name>-table.png is how it will appear in assets/dataframes.
     """
 
     # Creating the color scheme
@@ -136,26 +153,40 @@ def dataframe_image(dataframe: pd.DataFrame, image_name: str):
         cell.set_edgecolor(branding_dict['light-blue']);
         
     # Saving results
-    fig.tight_layout();
-    plt.savefig(f'assets/dataframes/{image_name}-dataframe.png', format = 'png');
+    buf = io.BytesIO()
+    fig.savefig(buf, format = 'jpeg')
+    buf.seek(0)
+    figs_data = buf.getvalue()
+    buf.close()
+    plt.close()
 
-def make_value_counts(dataframe: pd.DataFrame):
+    return figs_data
+    
+def make_value_counts(dataframe: pd.DataFrame) -> dict:
 
     """
-    This function accepts a pandas dataframe and loops through each
-    distinct column and produces a barchart for the distinct value
-    counts.
-
-    These are then saved to assets/value counts
+    This function accepts a dataframe as an argument, and loops through each
+    column, creating a bar chart of the population size for each distinct
+    category within that column. It then coverts that bar chart into a bytes
+    object, and stores it within a dictionary. This is then accessed with the
+    key corresponding to the given column name. 
 
     Parameters:
     ----------
-    dataframe : pd.DataFrame
+    dataframe: pd.DataFrame
         The dataframe to loop through
+        
+    Returns:
+    -------
+    value_counts_dict: dict
+        The dictionary of value counts. Keys correspond to a given
+        column name for the dataframe argument. Values are the bar
+        charts for the unique values for each column
     """
 
     # Loop through columnd
-    for idx, categorical_column_names in enumerate(dataframe):
+    value_counts_dict = {}
+    for idx, categorical_column_names in enumerate(dataframe.columns):
 
         # Identify number of distinct values
         n_distinct = len(dataframe[categorical_column_names].unique())
@@ -180,5 +211,12 @@ def make_value_counts(dataframe: pd.DataFrame):
         ax.set_xlabel('Value Counts');
 
         # Saving figure
-        fig.tight_layout();
-        plt.savefig(f'assets/value-counts/{categorical_column_names}-valcounts.png', format = 'png');
+        buf = io.BytesIO()
+        fig.savefig(buf, format = 'jpeg')
+        buf.seek(idx)
+        figs_data = buf.getvalue()
+        value_counts_dict[categorical_column_names] = figs_data
+        buf.close()
+        plt.close()
+        
+    return value_counts_dict

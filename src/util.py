@@ -13,67 +13,6 @@ branding_dict = {
 }
 
 # Function definitions
-def dataframe_attributes(dataframe: pd.DataFrame) -> dict:
-    
-    """
-    This function takes a user inputted dataframe, and creates an easily accessible dictionary
-    of dataframe attributes. 
-    
-    Parameters:
-    ----------
-    dataframe : pd.DataFrame
-        The dataframe to gather attributes for
-        
-    Returns:
-    -------
-    attribute_dict : dict
-        A dictionary containing a mapping of dataframe attributes
-    """
-    
-    # Create the dictionary
-    attribute_dict = {
-        '_m' : dataframe.shape[0],
-        '_n' : dataframe.shape[1],
-        '_columns' : list(dataframe.columns),
-        '_categorical' : dataframe.select_dtypes(include = object),
-        '_numeric' : dataframe.select_dtypes(include = np.number)
-    }
-    
-    return attribute_dict
-
-def dataframe_overview_writeup(report_name:str, attribute_dict: dict) -> str:
-    
-    """
-    This function takes a user inputted attribute dictionary, and creates a brief text summary
-    of the dataframe attributes.
-    
-    Parameters:
-    ----------
-    report_name : str
-        The name of the report called in the write up
-        
-    attribute_dict : dict
-        A dictionary produced by dataframe_attributes(dataframe: pd.DataFrame)
-        
-    Returns:
-    -------
-    dataframe_overview_string : str
-        A string containing a brief write up of the core dataframe attributes
-    """
-    
-    # Gathering the variables for write up
-    nobs = attribute_dict['_m']
-    ndim = attribute_dict['_n']
-    cat = attribute_dict['_categorical']
-    num = attribute_dict['_numeric']
-    
-    # Writing string
-    overview_writeup = f'Report name: {report_name}' \
-        f' Your dataframe has {nobs} nobs and {ndim} ndim.' \
-        f' There are {len(cat)} categorical features, and {len(num)} numeric features.'
-    
-    return overview_writeup
-
 def dataframe_info_table(dataframe: pd.DataFrame) -> pd.DataFrame:
     
     """
