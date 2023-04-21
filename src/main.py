@@ -5,6 +5,7 @@ import util
 import assets
 import data_import
 
+# Function Definitions
 def assets_build(dataframe: pd.DataFrame):
 
     # Make dataframe attributes
@@ -25,7 +26,7 @@ def assets_build(dataframe: pd.DataFrame):
     # Making aggregate dataframe images
     assets.dataframe_image(dataframe.describe());
     
-def direct_asset_build(dataframe: pd.DataFrame):
+def direct_assets_build(dataframe: pd.DataFrame):
 
     # Make the boxplots
     assets.make_boxplots(
